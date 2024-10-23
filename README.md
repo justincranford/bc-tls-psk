@@ -1,10 +1,14 @@
-Run PskTlsTest.java as a JUnit 5 test. It will do a client/server echo test 10 times using plaintext, and 10 times using TLS PSK.
-1. All ten Plaintext tests always pass
-2. First TLS PSK tests intermittently passes (race condition?)
-3. Last nine TLS PSK tests always pass
+Run [PskTlsTest.java](https://github.com/justincranford/bc-tls-psk/blob/main/src/test/java/com/github/justincranford/psk/PskTlsTest.java) as a JUnit 5 test. It runs a client/server echo test, 10 times using Plaintext, and 10 times using TLS PSK.
+1. Plaintext tests #1 through #10 always pass.
+2. TLS PSK test #1 intermittently passes, or fails with exception `TlsFatalAlertReceived: bad_record_mac(20)`.
+3. TLS PSK tests #2 through #10 always pass.
 
-If first TLS PSK test randomly fails, here is the stack trace.
+Screenshots comparing all tests passed, versus all tests passed except the first TLS PSK test.
 
+![image](https://github.com/user-attachments/assets/813b0665-2b37-4d87-b643-b9a009035398)
+![image](https://github.com/user-attachments/assets/3a6ca94b-fa85-4875-ae30-4bd9d3f97b01)
+
+If TLS PSK test #1 fails, the stack trace is:
 ```
 com.github.justincranford.psk.PskTlsTest
 testTlsPsk(com.github.justincranford.psk.PskTlsTest)
@@ -66,9 +70,3 @@ org.bouncycastle.tls.TlsFatalAlertReceived: bad_record_mac(20)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 ```
-
-Screenshot where all tests passed, versus all tests passed except the first TLS PSK test.
-
-![image](https://github.com/user-attachments/assets/813b0665-2b37-4d87-b643-b9a009035398)
-![image](https://github.com/user-attachments/assets/3a6ca94b-fa85-4875-ae30-4bd9d3f97b01)
-
