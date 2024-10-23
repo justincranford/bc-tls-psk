@@ -66,3 +66,9 @@ org.bouncycastle.tls.TlsFatalAlertReceived: bad_record_mac(20)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 ```
+
+Screenshot where all tests passed, versus all tests passed except the first TLS PSK test.
+
+![image](https://github.com/user-attachments/assets/813b0665-2b37-4d87-b643-b9a009035398)
+![image](https://github.com/user-attachments/assets/3a6ca94b-fa85-4875-ae30-4bd9d3f97b01)
+
