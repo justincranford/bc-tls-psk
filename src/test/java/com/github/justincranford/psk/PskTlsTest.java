@@ -34,26 +34,26 @@ import org.slf4j.LoggerFactory;
 public class PskTlsTest {
 	private static final Logger log = LoggerFactory.getLogger(PskTlsTest.class);
 	public static final SecureRandom SECURE_RANDOM = new SecureRandom();
-	private static final int[] CIPHER_SUITES = new int[] { CipherSuite.TLS_PSK_WITH_AES_128_CBC_SHA };
+	private static final int[] CIPHER_SUITES = new int[] { CipherSuite.TLS_PSK_WITH_AES_256_CBC_SHA384 };
 	private static final TlsPskIdentity PSK_IDENTITY = new TlsPskIdentity("identity".getBytes(StandardCharsets.UTF_8),"secret".getBytes(StandardCharsets.UTF_8));
 
     @ParameterizedTest // repeat test, use unique port each time to avoid TCP CLOSE_WAIT
     @ValueSource(ints={9440, 9441, 9442, 9443, 9444, 9445, 9446, 9447, 9448, 9449})
     @Order(1)
     public void testPlaintext(final int port) throws Exception {
-        doClientServer(false, "localhost", port);
+        doClientServer(false, "localhost", port); // useTlsPsk=false, plaintext communication
     }
 
     @ParameterizedTest // repeat test, use unique port each time to avoid TCP CLOSE_WAIT
     @ValueSource(ints={8440, 8441, 8442, 8443, 8444, 8445, 8446, 8447, 8448, 8449})
     @Order(2)
     public void testTlsPsk(final int port) throws Exception {
-        doClientServer(true, "localhost", port);
+        doClientServer(true, "localhost", port); // useTlsPsk=true, encrypted communication
     }
 
     // Start server, send message with client, and verify client received echo of its request
-    // useTlsPsk=true uses plaintext communication
-    // useTlsPsk=true uses plaintext communication
+    // useTlsPsk=true uses encrypted communication
+    // useTlsPsk=false uses plaintext communication
 	private void doClientServer(final boolean useTlsPsk, final String address, final int port) throws Exception {
 		final PskTlsServer pskTlsServer = Mockito.spy(new PskTlsServer(useTlsPsk, address, port, 2));
 		final String clientRequest = "This is an echo test " + SECURE_RANDOM.nextInt();
