@@ -1,9 +1,11 @@
 Run [PskTlsTest.java](https://github.com/justincranford/bc-tls-psk/blob/main/src/test/java/com/github/justincranford/psk/PskTlsTest.java) as a JUnit 5 test. It runs a client/server echo test, 10 times using Plaintext, and 10 times using TLS PSK.
-1. Plaintext tests #1 through #10 always pass.
-2. TLS PSK test #1 intermittently passes, or fails with exception `TlsFatalAlertReceived: bad_record_mac(20)`.
-3. TLS PSK tests #2 through #10 always pass.
+1. 100%: Plaintext tests #1 through #10 always pass.
+2. ~10%: TLS PSK test #1 intermittently passes (10%), or fails (90%) with exception `TlsFatalAlertReceived: bad_record_mac(20)`.
+3. 100%: TLS PSK tests #2 through #10 always pass.
 
-Screenshots comparing all tests passed, versus all tests passed except the first TLS PSK test.
+As a quick estimate, I seem to have to re-run the JUnit test about 10 times before I get all tests to pass. The rest of the runs, the first TLS PSK test fails.
+
+Below are screenshots showing all tests passed (1 run of 10), versus all tests passed except the first TLS PSK test (9 runs out of 10).
 
 ![image](https://github.com/user-attachments/assets/813b0665-2b37-4d87-b643-b9a009035398)
 ![image](https://github.com/user-attachments/assets/3a6ca94b-fa85-4875-ae30-4bd9d3f97b01)
